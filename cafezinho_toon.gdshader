@@ -12,14 +12,13 @@ uniform sampler2D albedo_texture;
 uniform vec3 head_pos;
 
 void vertex() {
-	// Called for every vertex the material is visible on.
+	if(head_pos != vec3(0.0)){
+		vec3 face_normal = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz - head_pos;
+		NORMAL = normalize(face_normal);
+	}
 }
 
 void fragment() {
-	if(head_pos != vec3(0.0)){
-		vec3 face_normal = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz - head_pos;
-		NORMAL = normalize(face_normal);
-	}
 	ALBEDO = texture(albedo_texture, UV).rgb;
 	float rim_dot_product = 1.0 - dot(VIEW, NORMAL);
 	float rim_intensity = pow(smoothstep(0.0, 2.0, rim_dot_product) * 2.0, 1);
