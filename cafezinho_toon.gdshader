@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode ambient_light_disabled;
+render_mode ambient_light_disabled, world_vertex_coords;
 uniform vec4 shadow_color: source_color = vec4(0.2);
 uniform float light_division: hint_range(0.0, 1.0) = 0.5;
 uniform float division_size: hint_range(0.0, 1.0) = 0.5;
@@ -13,7 +13,7 @@ uniform vec3 head_pos;
 
 void vertex() {
 	if(head_pos != vec3(0.0)){
-		vec3 face_normal = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz - head_pos;
+		vec3 face_normal = VERTEX - head_pos;
 		NORMAL = normalize(face_normal);
 	}
 }
