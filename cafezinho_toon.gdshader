@@ -12,10 +12,7 @@ uniform sampler2D albedo_texture;
 uniform vec3 head_pos;
 
 void vertex() {
-	if(head_pos != vec3(0.0)){
-		vec3 face_normal = VERTEX - head_pos;
-		NORMAL = normalize(face_normal);
-	}
+	
 }
 
 void fragment() {
